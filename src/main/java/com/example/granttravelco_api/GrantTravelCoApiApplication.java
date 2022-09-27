@@ -19,13 +19,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class GrantTravelCoApiApplication {
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private GrantTravelCoRepository grantTravelCoRepository;
     public static void main(String[] args) {
         SpringApplication.run(GrantTravelCoApiApplication.class, args);
     }
 
+
+
    @GetMapping("/travel")
-    public Iterable<Travel> index() {return grantTravelCoRepository.findAll();}
+    public Iterable<Travel> travelIndex() {return grantTravelCoRepository.findAll();}
 
     @PostMapping("/travel")
     public Iterable<Travel> create (@RequestBody Travel travelData) {
@@ -34,7 +39,7 @@ public class GrantTravelCoApiApplication {
     }
 
     @DeleteMapping("/travel/{id}")
-    public Iterable<Travel> delete(@PathVariable int id) {
+    public Iterable<Travel> deleteTravel(@PathVariable int id) {
         grantTravelCoRepository.deleteById(id);
         return grantTravelCoRepository.findAll();
     }
@@ -44,5 +49,32 @@ public class GrantTravelCoApiApplication {
         travelData.setId(id);
         grantTravelCoRepository.save(travelData);
         return grantTravelCoRepository.findAll();
+    }
+
+    @GetMapping("/user")
+    public Iterable<User> userIndex() {return userRepository.findAll();}
+
+    @PostMapping("/user")
+    public Iterable<User> create (@RequestBody User userData) {
+        userRepository.save(userData);
+        return userRepository.findAll();
+    }
+
+    @DeleteMapping("/user/{id}")
+    public Iterable<User> deleteUser(@PathVariable int id) {
+        userRepository.deleteById(id);
+        return userRepository.findAll();
+    }
+
+    @PutMapping("/user/{id}")
+    public Iterable<User> update(@PathVariable int id, @RequestBody User userData) {
+        userData.setId(id);
+        userRepository.save(userData);
+        return userRepository.findAll();
+    }
+
+    @GetMapping("/user/googleSub/{googleSub}")
+    public User getUserByGoogleSub(@PathVariable String googleSub) {
+        return userRepository.findByGoogleSub(googleSub);
     }
 }

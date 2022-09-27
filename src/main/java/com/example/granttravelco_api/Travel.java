@@ -1,16 +1,14 @@
 package com.example.granttravelco_api;
 
-import  javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "travel")
 public class Travel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private Date entryDate;
@@ -26,6 +24,10 @@ public class Travel {
     private String address;
 
     private String diaryEntry;
+
+    @ManyToOne
+    @JoinColumn(name = "User_id")
+    User user;
 
     public Integer getId() {return id;}
 
