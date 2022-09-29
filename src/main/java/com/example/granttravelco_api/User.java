@@ -8,39 +8,59 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_tbl_generator")
+    @Column(name = "id")
     private Integer id;
-
+    @Column(name = "email")
     private String email;
-
+    @Column(name = "name")
     private String name;
-
+    @Column(name = "picture")
     private String picture;
-
+    @Column(name = "googleSub")
     private String googleSub;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<Travel> travels;
+    public User() {
 
-    public Integer getId() {return id;}
+    }
+    public User(String email, String name, String picture, String googleSub) {
+        this.email = email;
+        this.name = name;
+        this.picture = picture;
+        this.googleSub = googleSub;
+    }
+    public Integer getId() {
+        return id;
+    }
+    public String getEmail() {
+        return email;
+    }
 
-    public Set<Travel> getTravels() {return travels;}
-    public void setTravels(Set<Travel> travels) {this.travels = travels;}
-    public void setId(Integer id) {this.id = id;}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public String getEmail() {return email;}
+    public String getName() {
+        return name;
+    }
 
-    public void setEmail(String email) {this.email = email;}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public String getName() {return name;}
+    public String getPicture() {
+        return picture;
+    }
 
-    public void setName(String name) {this.name = name;}
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
-    public String getPicture() {return picture;}
+    public String getGoogleSub() {
+        return googleSub;
+    }
 
-    public void setPicture(String picture) {this.picture = picture;}
-
-    public String getGoogleSub() {return googleSub;}
-
-    public void setGoogleSub(String googleSub) {this.googleSub = googleSub;}
+    public void setGoogleSub(String googleSub) {
+        this.googleSub = googleSub;
+    }
 }
